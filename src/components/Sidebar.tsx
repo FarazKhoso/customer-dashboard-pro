@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -15,19 +16,20 @@ interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
   activeItem: string;
-  onItemClick: (item: string) => void;
 }
 
 const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'product', label: 'Product', icon: Package },
-  { id: 'customers', label: 'Customers', icon: Users },
-  { id: 'income', label: 'Income', icon: DollarSign },
-  { id: 'promote', label: 'Promote', icon: Megaphone },
-  { id: 'help', label: 'Help', icon: HelpCircle },
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/' },
+  { id: 'product', label: 'Product', icon: Package, path: '/products' },
+  { id: 'customers', label: 'Customers', icon: Users, path: '/customers' },
+  { id: 'income', label: 'Income', icon: DollarSign, path: '/income' },
+  { id: 'promote', label: 'Promote', icon: Megaphone, path: '/promote' },
+  { id: 'help', label: 'Help', icon: HelpCircle, path: '/help' },
 ];
 
-export function Sidebar({ isOpen, onClose, activeItem, onItemClick }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* Mobile overlay */}
@@ -72,12 +74,10 @@ export function Sidebar({ isOpen, onClose, activeItem, onItemClick }: SidebarPro
             const isActive = activeItem === item.id;
             
             return (
-              <button
+              <Link
                 key={item.id}
-                onClick={() => {
-                  onItemClick(item.id);
-                  onClose();
-                }}
+                to={item.path}
+                onClick={onClose}
                 className={cn(
                   "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
                   isActive 
@@ -93,7 +93,7 @@ export function Sidebar({ isOpen, onClose, activeItem, onItemClick }: SidebarPro
                 {isActive && (
                   <ChevronRight className="w-4 h-4 ml-auto text-primary" />
                 )}
-              </button>
+              </Link>
             );
           })}
         </nav>

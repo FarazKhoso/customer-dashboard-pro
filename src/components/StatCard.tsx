@@ -8,12 +8,26 @@ interface StatCardProps {
   trend?: 'up' | 'down';
   avatars?: string[];
   delay?: number;
+  suffix?: string;
+  prefix?: string;
 }
 
-export function StatCard({ title, value, change, trend, avatars, delay = 0 }: StatCardProps) {
-  const formattedValue = typeof value === 'number' 
-    ? value.toLocaleString() 
-    : value;
+export function StatCard({ 
+  title, 
+  value, 
+  change, 
+  trend, 
+  avatars, 
+  delay = 0,
+  suffix = '',
+  prefix = ''
+}: StatCardProps) {
+  const formatValue = (val: number | string) => {
+    if (typeof val === 'string') return val;
+    if (val >= 1000000) return `${(val / 1000000).toFixed(1)}M`;
+    if (val >= 1000) return val.toLocaleString();
+    return val.toString();
+  };
 
   return (
     <div 
@@ -23,7 +37,9 @@ export function StatCard({ title, value, change, trend, avatars, delay = 0 }: St
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="text-sm font-medium text-muted-foreground mb-1">{title}</p>
-          <p className="text-3xl font-bold text-foreground">{formattedValue}</p>
+          <p className="text-3xl font-bold text-foreground">
+            {prefix}{formatValue(value)}{suffix}
+          </p>
         </div>
         
         {avatars && avatars.length > 0 && (
