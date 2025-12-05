@@ -49,23 +49,5 @@ Perfect for startups, digital agencies, SaaS companies, e-commerce brands, and s
 | react-hot-toast       | Friendly success/error messages     |
 | json-server           | Full mock REST API included         |
 
----
-
-## Project Structure
-
-src/
-├── assets/           # Logos, icons, images
-├── components/       # Reusable UI (Sidebar, Table, Card, Modal, etc.)
-├── data/             # Mock database (db.json) + json-server
-├── hooks/            # Custom hooks
-├── pages/            # All main pages
-│   ├── Dashboard.tsx
-│   ├── Customers.tsx
-│   ├── Products.tsx
-│   ├── Income.tsx
-│   └── Promote.tsx
-├── routes/           # Route configuration
-├── utils/            # Helpers & formatters
-└── App.tsx           # Main app with routing
 
 
