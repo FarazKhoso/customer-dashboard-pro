@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
+# EvoCRM – Professional Customer Relationship Management System
 
-## Project info
+Live Demo → https://evocrm-demo.vercel.app (replace with your actual link)
 
-**URL**: https://lovable.dev/projects/183c3e04-3874-42d7-9905-722414b15ed8
+---
 
-## How can I edit this code?
+## Overview
 
-There are several ways of editing your application.
+EvoCRM is a powerful, beautifully designed Customer Relationship Management platform built from the ground up using modern web technologies. It helps businesses manage customers, track revenue, organize products, run marketing campaigns, and grow faster — all from one intuitive dashboard.
 
-**Use Lovable**
+Perfect for startups, digital agencies, SaaS companies, e-commerce brands, and service providers operating locally or globally.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/183c3e04-3874-42d7-9905-722414b15ed8) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Key Features
 
-**Use your preferred IDE**
+| Module         | What You Can Do                                                                                 |
+|----------------|-------------------------------------------------------------------------------------------------|
+| **Dashboard**  | Instant overview: total customers, active members, real-time users + quick customer table     |
+| **Customers**  | Full customer database with search, filters, sorting, pagination, status tags & bulk actions |
+| **Products**   | Manage your full product catalog: name, category, price, stock, images, and availability     |
+| **Income**     | Track revenue, create & send invoices, monitor payment status, view beautiful monthly charts |
+| **Promote**    | Run email/SMS marketing campaigns, track opens, clicks, conversions, and campaign performance|
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Additional Features Included
+- 100% responsive (looks perfect on mobile, tablet, and desktop)
+- Add, edit, delete, and export data (CSV)
+- Real-time search and smart filtering
+- Professional modals with smooth animations
+- Toast notifications for all actions
+- Loading skeletons for better UX
+- Clean sidebar navigation with active states
+- "Upgrade to PRO" banner (ready for future monetization)
+- Fully hand-crafted, production-ready code
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## Tech Stack
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+| Technology          | Purpose                              |
+|---------------------|--------------------------------------|
+| React 18 + TypeScript | Strong, scalable frontend           |
+| Vite                  | Lightning-fast development & build  |
+| Tailwind CSS          | Beautiful, consistent, responsive design |
+| React Router v6       | Smooth page navigation              |
+| Recharts              | Elegant data visualization         |
+| Headless UI           | Accessible modals and components    |
+| React Hook Form       | Fast and reliable forms             |
+| react-hot-toast       | Friendly success/error messages     |
+| json-server           | Full mock REST API included         |
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Project Structure
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+src/
+├── assets/           # Logos, icons, images
+├── components/       # Reusable UI (Sidebar, Table, Card, Modal, etc.)
+├── data/             # Mock database (db.json) + json-server
+├── hooks/            # Custom hooks
+├── pages/            # All main pages
+│   ├── Dashboard.tsx
+│   ├── Customers.tsx
+│   ├── Products.tsx
+│   ├── Income.tsx
+│   └── Promote.tsx
+├── routes/           # Route configuration
+├── utils/            # Helpers & formatters
+└── App.tsx           # Main app with routing
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/183c3e04-3874-42d7-9905-722414b15ed8) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
