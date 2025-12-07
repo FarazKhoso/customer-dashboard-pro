@@ -1,16 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Package, 
-  Users, 
-  DollarSign, 
-  Megaphone, 
+import {
+  LayoutDashboard,
+  Package,
+  Users,
+  DollarSign,
+  Megaphone,
   HelpCircle,
   ChevronRight,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useAuth } from '@/auth/useAuth';
+import { toast } from 'sonner';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,17 +33,39 @@ const navItems = [
 
 export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Successfully logged out');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('Error logging out');
+    }
+    onClose(); // Close sidebar on mobile after logout
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   return (
     <>
       {/* Mobile overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar */}
       <aside
         className={cn(
@@ -58,7 +84,7 @@ export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
             <span className="font-semibold text-foreground">Dashboard</span>
             <span className="text-xs text-muted-foreground">v.0.1</span>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="lg:hidden p-1 rounded-md hover:bg-muted transition-colors"
             aria-label="Close sidebar"
@@ -72,7 +98,7 @@ export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.id;
-            
+
             return (
               <Link
                 key={item.id}
@@ -80,8 +106,8 @@ export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
                 onClick={onClose}
                 className={cn(
                   "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
-                  isActive 
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground" 
+                  isActive
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
                     : "text-sidebar-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
@@ -104,8 +130,8 @@ export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
             <p className="text-sm font-medium mb-3">
               Upgrade to PRO to get access to all features!
             </p>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               size="sm"
               className="w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold"
             >
@@ -117,15 +143,32 @@ export function Sidebar({ isOpen, onClose, activeItem }: SidebarProps) {
         {/* User Profile */}
         <div className="p-4 border-t border-sidebar-border">
           <div className="flex items-center gap-3">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face"
-              alt="User avatar"
-              className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20"
-            />
+            <Avatar className="w-10 h-10">
+              <AvatarImage
+                src={user?.user_metadata?.avatar_url || ''}
+                alt={user?.user_metadata?.name || 'User'}
+              />
+              <AvatarFallback className="bg-primary text-primary-foreground">
+                {user?.user_metadata?.name
+                  ? getInitials(user.user_metadata.name)
+                  : user?.email?.charAt(0).toUpperCase() || 'U'}
+              </AvatarFallback>
+            </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-foreground truncate">Evano</p>
+              <p className="text-sm font-semibold text-foreground truncate">
+                {user?.user_metadata?.name || user?.email?.split('@')[0] || 'User'}
+              </p>
               <p className="text-xs text-muted-foreground truncate">Project Manager</p>
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleLogout}
+              aria-label="Logout"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </aside>
